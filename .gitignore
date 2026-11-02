@@ -1,0 +1,21 @@
+# Environnement virtuel
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Données 
+data/*
+!data/.gitkeep
+
+# Secrets
+.env
+*.key
+
+# Système
+.DS_Store
+Thumbs.db
