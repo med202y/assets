@@ -1,0 +1,172 @@
+## 📊 Dataset Description, Sources & Data Quality Guidelines
+
+### 1. Dataset Overview
+
+Our project uses a combination of historical financial market data and U.S. macroeconomic indicators to build a unified dataset for financial analysis and modelling.
+
+The dataset is designed to cover the **United States financial market**, using daily observations over a common historical period:
+
+- **Start date:** September 2004
+- **End date:** November 4, 2026 (intended extraction endpoint)
+- **Frequency:** Daily
+- **Geographical scope:** United States
+- **Reference time zone:** America/New_York
+- **Currency:** USD for ETF prices
+
+September 2004 is selected as the starting point because VNQ, the last ETF in our selection to begin trading, started in September 2004.
+
+All variables are aligned using their observation dates to create a common dataset.
+
+### 2. Data Sources and Origins
+
+We rely on two primary data providers:
+
+#### A. Yahoo Finance — Financial Market Data
+
+Source: https://finance.yahoo.com/
+
+Yahoo Finance is used to retrieve historical adjusted closing prices for four exchange-traded funds (ETFs).
+
+| Ticker | Instrument | Represents |
+|---|---|---|
+| SPY | SPDR S&P 500 ETF Trust | U.S. equity market |
+| IEF | iShares 7–10 Year Treasury Bond ETF | U.S. government bonds |
+| LQD | iShares iBoxx Investment Grade Corporate Bond ETF | Investment-grade corporate bonds |
+| VNQ | Vanguard Real Estate ETF | U.S. real estate market |
+
+**Why adjusted closing prices?**
+
+Adjusted closing prices account for corporate actions such as stock splits and distributions. They are more appropriate than ordinary closing prices when studying historical investment performance and calculating returns.
+
+#### B. FRED — Macroeconomic and Financial Indicators
+
+Source: https://fred.stlouisfed.org/
+
+FRED (Federal Reserve Economic Data), maintained by the Federal Reserve Bank of St. Louis, provides the macroeconomic and financial indicators.
+
+| Variable | FRED Series ID | Description |
+|---|---|---|
+| VIX | VIXCLS | CBOE Volatility Index |
+| BAA10Y | BAA10Y | Moody's Baa corporate bond yield relative to the 10-year Treasury yield |
+| DGS3MO | DGS3MO | 3-month U.S. Treasury constant maturity rate |
+| DGS2 | DGS2 | 2-year U.S. Treasury constant maturity rate |
+| DGS10 | DGS10 | 10-year U.S. Treasury constant maturity rate |
+| T10Y2Y | T10Y2Y | Difference between 10-year and 2-year Treasury yields |
+
+These indicators provide information about market volatility, credit risk, interest rates and the yield curve.
+
+### 3. Dataset Construction and Temporal Alignment
+
+The datasets are downloaded separately using Python:
+
+- `yfinance` for ETF historical prices.
+- FRED CSV endpoints for macroeconomic indicators.
+- `pandas` for cleaning, date alignment and merging.
+
+The final dataset is constructed by joining all variables using their observation dates.
+
+An **inner join** is currently used, meaning that only dates available across all selected variables are retained.
+
+The resulting dataset contains:
+
+- 4 ETF price variables.
+- 6 macroeconomic and financial indicators.
+- One common date index.
+
+All observations are date-based. Yahoo Finance timestamps should be normalized to the U.S. Eastern calendar date before merging with FRED observations.
+
+**Important:** FRED observations are daily date-indexed values, not intraday timestamps. A common date does not guarantee that every indicator was publicly available at the same time.
+
+### 4. Important Points to Keep in Mind
+
+Before using the dataset for analysis or machine learning, every team member should consider the following:
+
+**A. Missing observations**
+
+- Financial markets are closed on weekends and public holidays.
+- Some FRED indicators may not be published every business day.
+- Missing values must be identified and investigated.
+- Do not automatically replace missing values with zero.
+- Do not blindly forward-fill observations without considering their meaning.
+
+**B. Historical coverage**
+
+- Although September 2004 is our intended starting point, individual variables may have different historical coverage.
+- BAA10Y requires particular attention because its FRED page may indicate that the series has been discontinued.
+- Verify the actual last available observation for every variable before accepting the final extraction endpoint.
+- Never assume that a requested download date means the data actually exists for that date.
+
+**C. Time zones and publication timing**
+
+- Use America/New_York as the reference time zone for market dates.
+- FRED series are date-based and do not necessarily provide publication timestamps.
+- An observation's reference date may differ from its actual publication date.
+- For predictive modelling, avoid using information that would not have been publicly available at the prediction time.
+
+**D. Data consistency and units**
+
+- ETF adjusted prices are expressed in USD.
+- Treasury yields and credit spreads are expressed in percentage points.
+- VIX is an index, not a percentage interest rate.
+- T10Y2Y represents a yield difference, not an independent interest rate.
+- Do not combine these variables without considering their different scales and financial meanings.
+
+**E. Financial data and look-ahead bias**
+
+If the dataset is used for forecasting, portfolio optimization or investment strategy evaluation:
+
+- Calculate returns from adjusted prices rather than treating price levels as returns.
+- Respect chronological ordering when splitting training, validation and testing sets.
+- Avoid random train/test splitting for time-series forecasting.
+- Account for publication delays of macroeconomic indicators.
+- Avoid using future information when constructing features.
+
+### 5. Recommended Validation Checklist
+
+Before beginning modelling, verify the following:
+
+- [ ] All 10 variables have been successfully downloaded.
+- [ ] The actual historical coverage of each series has been checked.
+- [ ] The BAA10Y discontinuation status has been investigated.
+- [ ] All dates use a consistent observation-date convention.
+- [ ] Duplicate dates have been checked.
+- [ ] Missing observations have been quantified.
+- [ ] Variable units have been verified.
+- [ ] No missing values have been silently replaced.
+- [ ] The final dataset's first and last dates have been confirmed.
+- [ ] Data sources and retrieval dates have been documented.
+
+### 6. Reproducibility and Data Organization
+
+The project should preserve both the original downloaded files and the cleaned dataset.
+
+Recommended structure:
+
+```text
+financial_dataset/
+│
+├── raw/
+│   ├── SPY_raw.csv
+│   ├── IEF_raw.csv
+│   ├── LQD_raw.csv
+│   ├── VNQ_raw.csv
+│   ├── VIX_raw.csv
+│   ├── BAA10Y_raw.csv
+│   ├── DGS3MO_raw.csv
+│   ├── DGS2_raw.csv
+│   ├── DGS10_raw.csv
+│   └── T10Y2Y_raw.csv
+│
+├── processed/
+│   └── final_dataset.csv
+│
+└── download_datasets.py
+```
+
+Keep the raw files unchanged so that data cleaning and preprocessing can be reproduced.
+
+**Data usage and attribution:** Yahoo Finance and FRED/Cboe are the respective data origins. Cite the original providers in reports, presentations and research outputs. Check the applicable usage and redistribution conditions before publishing or sharing the downloaded data.
+
+---
+
+**Final note:** This dataset is intended to provide a consistent historical view of U.S. financial markets and macroeconomic conditions. Its reliability depends not only on the sources but also on correct temporal alignment, missing-data treatment and avoiding look-ahead bias.
