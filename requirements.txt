@@ -5,3 +5,7 @@ fredapi
 pyarrow
 pytest
 python-dotenv
+scikit-learn
+xgboost
+matplotlib
+joblib
