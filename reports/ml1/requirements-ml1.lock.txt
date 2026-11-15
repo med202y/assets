@@ -1,0 +1,39 @@
+# ML 1 uniquement : environnement valide le 15 novembre 2026.
+# Python 3.12.13, macOS 26.5.2 ARM64. Fermeture runtime/test : 31 distributions.
+# Versions constatees et pip check valide ; installation neuve non executee.
+# Ce fichier ne garantit ni disponibilite de roues ni portabilite systeme.
+# XGBoost local : adaptation OpenMP preexistante ; voir README_HANDOFF.md.
+# Sur une autre plateforme : reviser les dependances conditionnelles et tester.
+# Hors perimetre : yfinance, fredapi, python-dotenv, non importes par ML 1 offline.
+# Les requirements partages restent inchanges. Aucun hash de roue verrouille.
+cloudpickle==3.1.2
+contourpy==1.4.0
+cycler==0.12.1
+exchange-calendars==4.13.3
+fonttools==4.68.0
+iniconfig==2.3.1
+joblib==1.6.0
+kiwisolver==1.5.1
+korean-lunar-calendar==0.4.0
+matplotlib==3.11.2
+narwhals==2.28.0
+numpy==2.5.4
+packaging==26.3
+pandas==3.1.1
+pillow==13.0.0
+pluggy==1.7.0
+pyarrow==26.0.1
+pygments==2.21.0
+pyluach==2.3.0
+pyparsing==3.3.3
+pytest==9.2.0
+python-dateutil==4.0.0
+scikit-learn==1.9.1
+scipy==1.18.1
+shap==0.54.1
+slicer==0.0.8
+threadpoolctl==3.8.0
+toolz==1.2.0
+tqdm==4.70.1
+tzdata==2026.6
+xgboost==3.4.1
