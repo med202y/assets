@@ -23,6 +23,7 @@ except Exception as exc:  # noqa: BLE001
 components.render_sidebar(as_of)
 components.render_header("p1_title")
 st.caption(components.t("p1_caption"))
+components.plain_words(components.t("p1_plain"))
 
 if sidebar_error is not None:
     components.render_error(sidebar_error, "data as of")
@@ -57,3 +58,5 @@ try:
             components.drawdown_chart(overview["drawdowns"])
 except Exception as exc:  # noqa: BLE001
     components.render_error(exc, "market overview")
+
+components.glossary(["etf", "base100", "correlation", "drawdown", "diversification"])
