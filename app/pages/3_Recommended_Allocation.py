@@ -47,6 +47,7 @@ try:
         max_value=config.MAX_WEIGHT_SLIDER,
         step=config.WEIGHT_SLIDER_STEP,
         key="max_weight",
+        **components.persist_session_kwargs(),
     )
     min_bonds = col_min.slider(
         components.t("min_bonds"),
@@ -54,12 +55,14 @@ try:
         max_value=config.MAX_WEIGHT_SLIDER,
         step=config.WEIGHT_SLIDER_STEP,
         key="min_bonds",
+        **components.persist_session_kwargs(),
     )
     benchmark = col_bench.selectbox(
         components.t("benchmark_weights"),
         options=list(config.BENCHMARKS),
         format_func=lambda value: components.t("benchmark_" + value),
         key="allocation_benchmark",
+        **components.persist_session_kwargs(),
     )
 
     signature = (profile, float(max_weight), float(min_bonds), benchmark)

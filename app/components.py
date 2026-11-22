@@ -145,6 +145,19 @@ def chart_help(key: str) -> None:
 # Shared sidebar / common widgets
 # --------------------------------------------------------------------------- #
 
+def persist_session_kwargs() -> dict[str, Any]:
+    """Keep keyed widget values alive across page switches.
+
+    Streamlit >= 1.67 drops a keyed widget's value on page switch unless
+    ``persist_state="session"`` is set. Older versions do not know the argument,
+    so it is only passed when supported.
+    """
+    version = tuple(
+        int(part) for part in st.__version__.split(".")[:2] if part.isdigit()
+    )
+    return {"persist_state": "session"} if version >= (1, 67) else {}
+
+
 def render_sidebar(as_of: Any = None) -> None:
     """Render the shared sidebar. Call once from Home and every page.
 
@@ -162,6 +175,7 @@ def render_sidebar(as_of: Any = None) -> None:
             t("language"),
             options=list(config.SUPPORTED_LANGUAGES),
             key="language",
+            **persist_session_kwargs(),
         )
 
         st.radio(
@@ -170,6 +184,7 @@ def render_sidebar(as_of: Any = None) -> None:
             format_func=lambda profile: t(f"profile_{profile}"),
             help=t("risk_profile_help"),
             key="risk_profile",
+            **persist_session_kwargs(),
         )
 
         as_of_text = str(as_of) if as_of not in (None, "") else t("data_as_of_unknown")

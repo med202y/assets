@@ -35,6 +35,7 @@ try:
         options=list(config.BENCHMARKS),
         format_func=lambda value: components.t("benchmark_" + value),
         key="selected_benchmarks",
+        **components.persist_session_kwargs(),
     )
 
     cost = services.get_transaction_cost()
