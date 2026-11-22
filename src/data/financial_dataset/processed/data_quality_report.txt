@@ -1,0 +1,66 @@
+FINANCIAL DATASET - QUALITY REPORT
+==================================================
+
+Generation date: 2026-11-06 14:29:07.747329
+Start date requested: 2004-09-23
+End date requested: 2026-11-04
+Reference timezone: America/New_York
+Frequency: Daily
+Geographical scope: United States
+
+INDIVIDUAL VARIABLE COVERAGE
+--------------------------------------------------
+Variable First observation Last observation  Valid observations  Missing observations
+     SPY        2004-09-23       2026-11-04                5565                   205
+     IEF        2004-09-23       2026-11-04                5565                   205
+     LQD        2004-09-23       2026-11-04                5565                   205
+     VNQ        2004-09-29       2026-11-04                5561                   209
+     VIX        2004-09-23       2026-11-04                5598                   172
+  BAA10Y        2004-09-23       2026-11-04                5528                   242
+  DGS3MO        2004-09-23       2026-11-04                5533                   237
+    DGS2        2004-09-23       2026-11-04                5533                   237
+   DGS10        2004-09-23       2026-11-04                5533                   237
+  T10Y2Y        2004-09-23       2026-11-04                5533                   237
+
+FINAL DATASET
+--------------------------------------------------
+First observation: 2004-09-29 00:00:00
+Last observation: 2026-11-04 00:00:00
+Total rows: 5517
+Total columns: 10
+
+MISSING VALUES BEFORE CLEANING
+--------------------------------------------------
+SPY        0
+IEF        0
+LQD        0
+VNQ        4
+VIX        0
+BAA10Y    44
+DGS3MO    42
+DGS2      42
+DGS10     42
+T10Y2Y    42
+
+MISSING VALUES AFTER CLEANING
+--------------------------------------------------
+SPY       0
+IEF       0
+LQD       0
+VNQ       0
+VIX       0
+BAA10Y    0
+DGS3MO    0
+DGS2      0
+DGS10     0
+T10Y2Y    0
+
+VARIABLES
+--------------------------------------------------
+SPY, IEF, LQD, VNQ, VIX, BAA10Y, DGS3MO, DGS2, DGS10, T10Y2Y
+
+DATASET STATUS
+--------------------------------------------------
+Requested endpoint reached.
+
+Note: Common dates do not guarantee simultaneous publication of all indicators.

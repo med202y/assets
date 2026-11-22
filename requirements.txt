@@ -5,3 +5,11 @@ fredapi
 pyarrow
 pytest
 python-dotenv
+scikit-learn
+xgboost
+matplotlib
+joblib
+cvxpy>=1.4
+exchange-calendars
+streamlit
+plotly
