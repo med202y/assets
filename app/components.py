@@ -105,6 +105,27 @@ def _l(key: str) -> str:
     return t(key) if key in config.LABELS.get(language, {}) else key
 
 
+def plain_words(message: str) -> None:
+    """Show a short, jargon-free explanation of the page."""
+    st.info(f"**{t('plain_words_title')}**\n\n{message}")
+
+
+def glossary(terms: Sequence[str]) -> None:
+    """Show an expander defining the technical words used on this page.
+
+    Definitions live in ``config.GLOSSARY``; pages only pass keys, so adding a
+    language or editing wording never requires touching a page file.
+    """
+    if not terms:
+        return
+    language = st.session_state.get("language", config.DEFAULT_LANGUAGE)
+    with st.expander(t("glossary_page_title")):
+        st.caption(t("glossary_intro"))
+        for term in terms:
+            name, definition = config.glossary(term, language)
+            st.markdown(f"**{name}** — {definition}")
+
+
 # --------------------------------------------------------------------------- #
 # Shared sidebar / common widgets
 # --------------------------------------------------------------------------- #
