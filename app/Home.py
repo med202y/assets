@@ -28,6 +28,20 @@ components.render_sidebar(as_of)
 components.render_header("home_welcome")
 st.markdown(components.t("home_intro"))
 
+# Explain the problem and who the platform helps, in everyday language.
+components.section(components.t("home_solves_title"))
+st.markdown(components.t("home_solves"))
+
+regular_col, finance_col = st.columns([1, 1], gap="large")
+with regular_col:
+    components.section(components.t("home_regular_title"))
+    st.markdown(components.t("home_regular"))
+with finance_col:
+    components.section(components.t("home_finance_title"))
+    st.markdown(components.t("home_finance"))
+
+st.divider()
+
 intro_col, pages_col = st.columns([1, 1], gap="large")
 
 with intro_col:
@@ -39,6 +53,10 @@ with pages_col:
     components.section(components.t("home_pages"))
     for key in ("home_p1", "home_p2", "home_p3", "home_p4"):
         st.markdown(f"- {components.t(key)}")
+
+components.glossary(
+    ["etf", "allocation", "risk_profile", "model", "signal", "optimizer", "backtest"]
+)
 
 st.divider()
 profile = st.session_state["risk_profile"]
