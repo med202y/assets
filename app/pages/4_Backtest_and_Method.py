@@ -23,6 +23,7 @@ except Exception as exc:  # noqa: BLE001
 components.render_sidebar(as_of)
 components.render_header("p4_title")
 st.caption(components.t("p4_intro"))
+components.plain_words(components.t("p4_plain"))
 
 if sidebar_error is not None:
     components.render_error(sidebar_error, "data as of")
@@ -72,3 +73,19 @@ try:
         st.markdown(f"- {message}")
 except Exception as exc:  # noqa: BLE001
     components.render_error(exc, "backtest and method")
+
+components.glossary(
+    [
+        "backtest",
+        "benchmark",
+        "equity_curve",
+        "annualised_return",
+        "sharpe",
+        "max_drawdown",
+        "turnover",
+        "transaction_cost",
+        "walk_forward",
+        "no_lookahead",
+        "rebalancing",
+    ]
+)
