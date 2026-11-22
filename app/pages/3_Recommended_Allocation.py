@@ -23,6 +23,7 @@ except Exception as exc:  # noqa: BLE001
 components.render_sidebar(as_of)
 components.render_header("p3_title")
 st.caption(components.t("p3_intro"))
+components.plain_words(components.t("p3_plain"))
 
 if sidebar_error is not None:
     components.render_error(sidebar_error, "data as of")
@@ -103,3 +104,16 @@ try:
         components.render_disclaimer()
 except Exception as exc:  # noqa: BLE001
     components.render_error(exc, "recommended allocation")
+
+components.glossary(
+    [
+        "allocation",
+        "weight",
+        "risk_profile",
+        "constraint",
+        "optimizer",
+        "benchmark",
+        "infeasible",
+        "uncertainty",
+    ]
+)
