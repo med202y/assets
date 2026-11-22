@@ -126,6 +126,21 @@ def glossary(terms: Sequence[str]) -> None:
             st.markdown(f"**{name}** — {definition}")
 
 
+def ticker_legend() -> None:
+    """Explain the four ETF ticker symbols in plain language."""
+    language = st.session_state.get("language", config.DEFAULT_LANGUAGE)
+    with st.expander(t("ticker_legend_title")):
+        st.caption(t("ticker_legend_intro"))
+        for asset in config.ASSETS:
+            name, definition = config.glossary(asset.lower(), language)
+            st.markdown(f"**{name}** — {definition}")
+
+
+def chart_help(key: str) -> None:
+    """Show a one-line, plain-language guide to the chart just rendered."""
+    st.caption(f"**{t('chart_help_prefix')}** {t('chart_' + key)}")
+
+
 # --------------------------------------------------------------------------- #
 # Shared sidebar / common widgets
 # --------------------------------------------------------------------------- #
@@ -300,7 +315,6 @@ def correlation_heatmap(correlation: pd.DataFrame) -> None:
         title=dict(text=t("p1_correlation"), x=0.01, xanchor="left"),
     )
     _draw(fig)
-    st.caption(t("p1_correlation_note"))
 
 
 def drawdown_chart(data: pd.DataFrame) -> None:
@@ -325,7 +339,6 @@ def drawdown_chart(data: pd.DataFrame) -> None:
         )
     fig.update_yaxes(title_text="%", gridcolor="#E2E8F0")
     _draw(fig)
-    st.caption(t("p1_drawdown_note"))
 
 
 def _with_alpha(hex_color: str, alpha: float) -> str:

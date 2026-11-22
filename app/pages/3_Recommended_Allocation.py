@@ -24,6 +24,7 @@ components.render_sidebar(as_of)
 components.render_header("p3_title")
 st.caption(components.t("p3_intro"))
 components.plain_words(components.t("p3_plain"))
+components.ticker_legend()
 
 if sidebar_error is not None:
     components.render_error(sidebar_error, "data as of")
@@ -89,10 +90,13 @@ try:
         weights_col, table_col = st.columns([1, 1])
         with weights_col:
             components.weights_donut(result["weights"])
+            components.chart_help("weights_donut")
         with table_col:
             components.section(components.t("allocation_table_title"))
             components.weights_table(result["weights"])
+            components.chart_help("weights_table")
             components.weights_comparison_chart(result["comparison"])
+            components.chart_help("comparison")
 
         if result.get("source") == services.SOURCE_PLACEHOLDER:
             components.info_block(components.t("placeholder_notice"))
@@ -109,6 +113,10 @@ components.glossary(
     [
         "allocation",
         "weight",
+        "spy",
+        "ief",
+        "lqd",
+        "vnq",
         "risk_profile",
         "constraint",
         "optimizer",

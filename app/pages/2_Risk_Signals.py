@@ -24,6 +24,7 @@ components.render_sidebar(as_of)
 components.render_header("p2_title")
 st.caption(components.t("p2_intro"))
 components.plain_words(components.t("p2_plain"))
+components.ticker_legend()
 
 if sidebar_error is not None:
     components.render_error(sidebar_error, "data as of")
@@ -41,14 +42,17 @@ try:
     gauge_col, quality_col = st.columns([1, 2])
     with gauge_col:
         components.ml1_gauge(ml1["current_probability"])
+        components.chart_help("gauge")
     with quality_col:
         components.section(components.t("quality_title"))
         components.quality_table(ml1["quality_table"])
+        components.chart_help("quality")
         st.caption(components.t("quality_note"))
         if ml1.get("weak"):
             components.warning_block(components.t("ml1_weak"))
 
     components.ml1_history_chart(ml1["history"], ml1["large_drawdown_dates"])
+    components.chart_help("ml1_history")
 
     st.divider()
 
@@ -57,6 +61,7 @@ try:
     vol_col, quality_col2 = st.columns([2, 1])
     with vol_col:
         components.volatility_forecast_chart(ml2["forecast_table"])
+        components.chart_help("volatility")
     with quality_col2:
         components.quality_table(ml2["quality_table"])
 
@@ -67,8 +72,10 @@ try:
     drivers_ml1, drivers_ml2 = st.columns(2)
     with drivers_ml1:
         components.feature_importance_chart(ml1["top_features"], components.t("drivers_ml1"))
+        components.chart_help("feature_importance")
     with drivers_ml2:
         components.feature_importance_chart(ml2["top_features"], components.t("drivers_ml2"))
+        components.chart_help("feature_importance")
 except Exception as exc:  # noqa: BLE001
     components.render_error(exc, "risk signals")
 
@@ -76,6 +83,10 @@ components.glossary(
     [
         "model",
         "signal",
+        "spy",
+        "ief",
+        "lqd",
+        "vnq",
         "crash_probability",
         "volatility",
         "forecast",

@@ -49,6 +49,78 @@ LABELS: dict[str, dict[str, str]] = {
         "glossary_page_title": "Words used on this page",
         "glossary_intro": "Click to see what each term means.",
 
+        # Ticker symbols and how to read the charts.
+        "ticker_legend_title": "What do SPY, IEF, LQD and VNQ mean?",
+        "ticker_legend_intro": (
+            "These are ticker symbols: short names for the four funds used in "
+            "this tool."
+        ),
+        "chart_help_prefix": "How to read this:",
+        "chart_normalized": (
+            "All four funds start at 100. A rising line means that fund grew "
+            "more than the others in this period; a falling line means it lost "
+            "value. This is a look back, not a forecast."
+        ),
+        "chart_correlation": (
+            "Each square shows how two funds moved together. Red means they "
+            "often moved in opposite directions, which helps diversification; "
+            "blue means they moved together. Pale squares mean little link."
+        ),
+        "chart_drawdown": (
+            "This shows how far each fund fell below its previous high. A "
+            "deeper dip means a more painful period. It does not predict future "
+            "losses."
+        ),
+        "chart_gauge": (
+            "The needle is the model's estimate of the chance that US shares "
+            "fall sharply in the next 21 trading days. It is an educated guess, "
+            "not a promise."
+        ),
+        "chart_quality": (
+            "These scores test the models on data they did not learn from. For "
+            "AUC, higher is better. For Brier and MAE, lower is better. They are "
+            "checks on the past, not grades for the future."
+        ),
+        "chart_ml1_history": (
+            "The line is the model's crash probability over time. Dotted lines "
+            "mark periods when SPY really did fall a lot, so you can see whether "
+            "the model warned early."
+        ),
+        "chart_volatility": (
+            "A blue bar is the model's guess of how jumpy a fund may be; the "
+            "grey bar is its long-run average. Taller bars mean more expected "
+            "ups and downs."
+        ),
+        "chart_feature_importance": (
+            "Longer bars are the inputs the model looked at most. They explain "
+            "what influenced it, not whether it was right."
+        ),
+        "chart_weights_donut": (
+            "Each slice is the share of your money the optimizer suggests for "
+            "one fund. The whole circle is 100%."
+        ),
+        "chart_weights_table": (
+            "These are the exact percentages behind the chart. Together they "
+            "should add up to 100%."
+        ),
+        "chart_comparison": (
+            "This compares the suggestion with last month and with a simple "
+            "benchmark. It shows how different the new mix is."
+        ),
+        "chart_equity": (
+            "The lines show what 100 would have become if you had followed each "
+            "mix. Higher past lines are better past results, but they do not "
+            "guarantee future ones."
+        ),
+        "chart_metrics": (
+            "Annual return and Sharpe: higher is better. Volatility, maximum "
+            "drawdown and turnover: lower is usually better."
+        ),
+        "chart_weights_area": (
+            "The stacked bands show how the mix changed over time. The total "
+            "height is always 100%."
+        ),
+
         # Risk profiles
         "profile_conservative": "Conservative",
         "profile_balanced": "Balanced",
@@ -335,6 +407,83 @@ LABELS: dict[str, dict[str, str]] = {
         "glossary_page_title": "Mots utilisés sur cette page",
         "glossary_intro": "Cliquez pour voir la signification de chaque terme.",
 
+        # Symboles boursiers et lecture des graphiques.
+        "ticker_legend_title": "Que signifient SPY, IEF, LQD et VNQ ?",
+        "ticker_legend_intro": (
+            "Ce sont des symboles boursiers : les noms courts des quatre fonds "
+            "utilisés dans cet outil."
+        ),
+        "chart_help_prefix": "Comment lire ceci :",
+        "chart_normalized": (
+            "Les quatre fonds commencent tous à 100. Une ligne qui monte signifie "
+            "que ce fonds a plus progressé que les autres sur la période ; une "
+            "ligne qui baisse signifie qu'il a perdu de la valeur. C'est un regard "
+            "sur le passé, pas une prévision."
+        ),
+        "chart_correlation": (
+            "Chaque case montre si deux fonds ont bougé ensemble. Le rouge signifie "
+            "qu'ils ont souvent bougé en sens opposé, ce qui aide la diversification ; "
+            "le bleu signifie qu'ils ont bougé ensemble. Les cases pâles indiquent "
+            "peu de lien."
+        ),
+        "chart_drawdown": (
+            "Ce graphique montre de combien chaque fonds est tombé sous son plus "
+            "haut précédent. Une baisse plus profonde signifie une période plus "
+            "difficile. Il ne prédit pas les pertes futures."
+        ),
+        "chart_gauge": (
+            "L'aiguille montre l'estimation du modèle sur la chance d'une forte "
+            "baisse des actions américaines sous 21 séances. C'est une supposition "
+            "éclairée, pas une promesse."
+        ),
+        "chart_quality": (
+            "Ces scores testent les modèles sur des données qu'ils n'ont pas vues. "
+            "Pour l'AUC, plus c'est élevé, mieux c'est. Pour le score de Brier et "
+            "le MAE, plus c'est bas, mieux c'est. Ce sont des contrôles du passé, "
+            "pas des notes pour le futur."
+        ),
+        "chart_ml1_history": (
+            "La ligne montre la probabilité de krach estimée par le modèle au fil "
+            "du temps. Les lignes pointillées marquent les périodes où SPY a "
+            "réellement beaucoup baissé : vous voyez si le modèle avait prévenu."
+        ),
+        "chart_volatility": (
+            "Une barre bleue est l'estimation de l'agitation possible d'un fonds ; "
+            "la barre grise est sa moyenne de long terme. Des barres plus hautes "
+            "signifient davantage de hauts et de bas attendus."
+        ),
+        "chart_feature_importance": (
+            "Les barres les plus longues sont les données que le modèle a le plus "
+            "regardées. Elles expliquent ce qui l'a influencé, pas s'il avait raison."
+        ),
+        "chart_weights_donut": (
+            "Chaque part représente la portion de votre argent que l'optimiseur "
+            "suggère pour un fonds. Le cercle entier représente 100 %."
+        ),
+        "chart_weights_table": (
+            "Voici les pourcentages exacts derrière le graphique. Ensemble, ils "
+            "doivent totaliser 100 %."
+        ),
+        "chart_comparison": (
+            "Cela compare la suggestion avec le mois précédent et avec un mélange "
+            "simple de référence. Vous voyez à quel point le nouveau mélange est "
+            "différent."
+        ),
+        "chart_equity": (
+            "Les lignes montrent ce que 100 seraient devenus si vous aviez suivi "
+            "chaque mélange. Des lignes plus hautes indiquent de meilleurs résultats "
+            "passés, sans garantir les résultats futurs."
+        ),
+        "chart_metrics": (
+            "Rendement annualisé et ratio de Sharpe : plus c'est élevé, mieux c'est. "
+            "Volatilité, drawdown maximal et rotation : plus c'est bas, mieux c'est "
+            "en général."
+        ),
+        "chart_weights_area": (
+            "Les bandes empilées montrent comment le mélange a changé dans le temps. "
+            "La hauteur totale reste toujours à 100 %."
+        ),
+
         "profile_conservative": "Prudent",
         "profile_balanced": "Équilibré",
         "profile_aggressive": "Dynamique",
@@ -597,6 +746,10 @@ LABELS: dict[str, dict[str, str]] = {
 GLOSSARY: dict[str, dict[str, tuple[str, str]]] = {
     "EN": {
         "etf": ("ETF (fund)", "A fund that trades like a stock and holds many assets at once. SPY, IEF, LQD and VNQ are ETFs."),
+        "spy": ("SPY", "A fund that follows the S&P 500, the 500 largest US companies. It is the 'US shares' part of the portfolio."),
+        "ief": ("IEF", "A fund of US Treasury bonds with medium to long maturity. It is usually the calmest of the four funds."),
+        "lqd": ("LQD", "A fund of bonds issued by strong companies (investment grade). Its risk sits between government bonds and shares."),
+        "vnq": ("VNQ", "A fund of listed property companies (real estate). It can be more volatile than the bond funds."),
         "allocation": ("Allocation", "How the money is split between the four funds, shown as percentages."),
         "weight": ("Weight", "The percentage of the portfolio in one fund. 25% means a quarter of the money."),
         "risk_profile": ("Risk profile", "How much ups and downs you are willing to accept. Conservative means calmer; aggressive accepts more risk."),
@@ -633,6 +786,10 @@ GLOSSARY: dict[str, dict[str, tuple[str, str]]] = {
     },
     "FR": {
         "etf": ("ETF (fonds)", "Un fonds qui se négocie comme une action et contient plusieurs actifs. SPY, IEF, LQD et VNQ sont des ETF."),
+        "spy": ("SPY", "Un fonds qui suit le S&P 500, les 500 plus grandes entreprises américaines. C'est la part « actions américaines » du portefeuille."),
+        "ief": ("IEF", "Un fonds d'obligations du Trésor américain à moyen et long terme. C'est généralement le plus calme des quatre fonds."),
+        "lqd": ("LQD", "Un fonds d'obligations émises par des entreprises solides (catégorie investment grade). Son risque se situe entre les obligations d'État et les actions."),
+        "vnq": ("VNQ", "Un fonds de sociétés immobilières cotées (REIT). Il peut être plus volatil que les fonds obligataires."),
         "allocation": ("Allocation", "La répartition de l'argent entre les quatre fonds, en pourcentages."),
         "weight": ("Poids", "Le pourcentage du portefeuille dans un fonds. 25 % signifie un quart de l'argent."),
         "risk_profile": ("Profil de risque", "La part des hauts et des bas que vous acceptez. Prudent = plus calme ; dynamique = plus de risque."),

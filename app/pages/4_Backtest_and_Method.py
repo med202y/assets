@@ -24,6 +24,7 @@ components.render_sidebar(as_of)
 components.render_header("p4_title")
 st.caption(components.t("p4_intro"))
 components.plain_words(components.t("p4_plain"))
+components.ticker_legend()
 
 if sidebar_error is not None:
     components.render_error(sidebar_error, "data as of")
@@ -49,6 +50,7 @@ try:
         components.info_block(components.t("placeholder_backtest_notice"))
 
     components.equity_curve_chart(backtest["equity_curve"])
+    components.chart_help("equity")
     if backtest.get("underperforms"):
         components.warning_block(components.t("underperform"))
 
@@ -56,9 +58,11 @@ try:
     with metrics_col:
         components.section(components.t("metrics_title"))
         components.metrics_table(backtest["metrics"])
+        components.chart_help("metrics")
     with weights_col:
         components.section(components.t("weights_over_time"))
         components.weights_area_chart(backtest["weights_history"])
+        components.chart_help("weights_area")
 
     st.divider()
     components.section(components.t("method_title"))
@@ -78,6 +82,10 @@ components.glossary(
     [
         "backtest",
         "benchmark",
+        "spy",
+        "ief",
+        "lqd",
+        "vnq",
         "equity_curve",
         "annualised_return",
         "sharpe",

@@ -24,6 +24,7 @@ components.render_sidebar(as_of)
 components.render_header("p1_title")
 st.caption(components.t("p1_caption"))
 components.plain_words(components.t("p1_plain"))
+components.ticker_legend()
 
 if sidebar_error is not None:
     components.render_error(sidebar_error, "data as of")
@@ -51,12 +52,27 @@ try:
             overview = services.get_market_overview(start, end)
 
         components.normalized_price_chart(overview["prices_normalized"])
+        components.chart_help("normalized")
         corr_col, dd_col = st.columns([1, 2])
         with corr_col:
             components.correlation_heatmap(overview["correlation"])
+            components.chart_help("correlation")
         with dd_col:
             components.drawdown_chart(overview["drawdowns"])
+            components.chart_help("drawdown")
 except Exception as exc:  # noqa: BLE001
     components.render_error(exc, "market overview")
 
-components.glossary(["etf", "base100", "correlation", "drawdown", "diversification"])
+components.glossary(
+    [
+        "etf",
+        "spy",
+        "ief",
+        "lqd",
+        "vnq",
+        "base100",
+        "correlation",
+        "drawdown",
+        "diversification",
+    ]
+)

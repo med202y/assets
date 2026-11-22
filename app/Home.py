@@ -27,6 +27,7 @@ except Exception as exc:  # noqa: BLE001 - never show a raw traceback in the UI
 components.render_sidebar(as_of)
 components.render_header("home_welcome")
 st.markdown(components.t("home_intro"))
+components.ticker_legend()
 
 # Explain the problem and who the platform helps, in everyday language.
 components.section(components.t("home_solves_title"))
@@ -55,7 +56,19 @@ with pages_col:
         st.markdown(f"- {components.t(key)}")
 
 components.glossary(
-    ["etf", "allocation", "risk_profile", "model", "signal", "optimizer", "backtest"]
+    [
+        "etf",
+        "spy",
+        "ief",
+        "lqd",
+        "vnq",
+        "allocation",
+        "risk_profile",
+        "model",
+        "signal",
+        "optimizer",
+        "backtest",
+    ]
 )
 
 st.divider()
