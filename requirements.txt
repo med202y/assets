@@ -11,3 +11,5 @@ matplotlib
 joblib
 cvxpy>=1.4
 exchange-calendars
+streamlit
+plotly
