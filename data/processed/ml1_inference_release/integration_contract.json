@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "model": "logistic_regression",
+  "feature_variant": "core",
+  "calibration": "none",
+  "status": "provisional",
+  "horizon": "21_spy_sessions",
+  "horizon_sessions": 21,
+  "meaning": "P(at least one of the next 21 SPY adjusted closes is strictly below 0.93 times the decision-date adjusted close)",
+  "simple_interface": "predict_crisis(date) -> Python float in [0,1] after configure_inference(trusted=True)",
+  "required_details": [
+    "prediction_date",
+    "p_crisis",
+    "horizon_sessions",
+    "model_name",
+    "model_version",
+    "feature_variant",
+    "calibration_method",
+    "prediction_origin",
+    "training_cutoff",
+    "decision_time",
+    "status"
+  ],
+  "decision_timezone": "America/New_York",
+  "decision_local_hour": "17:00",
+  "historical_origin": "historical_oof",
+  "blind_origin": "blind_holdout_inference",
+  "historical_policy": "saved annually refitted purged OOF only; refuse missing historical dates",
+  "blind_policy": "frozen pre-2023 LR; label-free features; no holdout performance evaluation",
+  "timing": "retrospective reconstruction, not evidence of contemporaneous publication",
+  "training_cutoff_definition": "last training feature/decision date; training_label_end is reported separately",
+  "monthly_policy": "historical: last admissible OOF session; blind: every calendar session of a fully covered month required",
+  "trust": "joblib can execute code; load only artifacts from a trusted source; hashes are integrity checks, not authentication",
+  "limitations": [
+    "provisional candidate selected on validation; no statistical superiority established",
+    "raw probabilities are not certified calibrated; calibration none",
+    "adjusted-close snapshots may be revised; historical receipt by 17:00 is assumed",
+    "historical OOF and frozen blind policies are different",
+    "no allocation, investment recommendation or backtest"
+  ]
+}
