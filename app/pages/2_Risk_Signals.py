@@ -23,6 +23,7 @@ except Exception as exc:  # noqa: BLE001
 components.render_sidebar(as_of)
 components.render_header("p2_title")
 st.caption(components.t("p2_intro"))
+components.plain_words(components.t("p2_plain"))
 
 if sidebar_error is not None:
     components.render_error(sidebar_error, "data as of")
@@ -70,3 +71,18 @@ try:
         components.feature_importance_chart(ml2["top_features"], components.t("drivers_ml2"))
 except Exception as exc:  # noqa: BLE001
     components.render_error(exc, "risk signals")
+
+components.glossary(
+    [
+        "model",
+        "signal",
+        "crash_probability",
+        "volatility",
+        "forecast",
+        "out_of_sample",
+        "auc",
+        "brier",
+        "mae",
+        "feature",
+    ]
+)
