@@ -9,3 +9,5 @@ scikit-learn
 xgboost
 matplotlib
 joblib
+cvxpy>=1.4
+exchange-calendars

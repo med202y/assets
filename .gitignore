@@ -9,7 +9,7 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Données 
-data/*
+
 !data/.gitkeep
 
 # Secrets
@@ -19,3 +19,4 @@ data/*
 # Système
 .DS_Store
 Thumbs.db
+.idea/
