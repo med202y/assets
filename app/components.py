@@ -18,6 +18,50 @@ from app import config
 
 logger = logging.getLogger(__name__)
 
+# Streamlit is responsive by default, but the fixed column ratios and chart
+# heights used here need a little help on narrow screens. This CSS only applies
+# below the mobile breakpoint and changes presentation, never data or logic.
+MOBILE_CSS = """
+<style>
+@media (max-width: 768px) {
+  /* Stack every multi-column row on phones. */
+  [data-testid="stHorizontalBlock"] {
+    flex-direction: column !important;
+    gap: 0.6rem !important;
+  }
+  [data-testid="stHorizontalBlock"] > div {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Keep charts inside the viewport. */
+  .js-plotly-plot,
+  .plot-container,
+  .svg-container {
+    max-width: 100% !important;
+    height: 300px !important;
+  }
+  .modebar { display: none !important; }
+
+  /* Tables scroll sideways instead of stretching the page. */
+  [data-testid="stDataFrame"] {
+    width: 100% !important;
+    overflow-x: auto !important;
+  }
+
+  /* Slightly smaller headings and safer text wrapping. */
+  h1 { font-size: 1.6rem !important; }
+  h2 { font-size: 1.3rem !important; }
+  h3 { font-size: 1.1rem !important; }
+  [data-testid="stMarkdownContainer"] p,
+  [data-testid="stSidebar"] p {
+    overflow-wrap: anywhere;
+  }
+}
+</style>
+"""
+
 
 # --------------------------------------------------------------------------- #
 # Session state and text helpers
@@ -30,6 +74,7 @@ def setup_page() -> None:
         page_icon="📊",
         layout="wide",
     )
+    st.markdown(MOBILE_CSS, unsafe_allow_html=True)
 
 
 def init_session_state() -> None:
