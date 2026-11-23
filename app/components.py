@@ -85,6 +85,8 @@ def init_session_state() -> None:
         "max_weight": config.DEFAULT_MAX_WEIGHT,
         "min_bonds": config.DEFAULT_MIN_BONDS,
         "selected_benchmarks": list(config.DEFAULT_BENCHMARKS),
+        "investment_amount": config.DEFAULT_INVESTMENT_AMOUNT,
+        "investment_currency": config.DEFAULT_CURRENCY,
         "allocation_result": None,
         "allocation_signature": None,
     }
@@ -234,6 +236,14 @@ def fmt_number(value: Any, digits: int = 2) -> str:
         return f"{float(value):.{digits}f}"
     except (TypeError, ValueError):
         return "—"
+
+
+def fmt_money(value: Any, currency: str = "") -> str:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return "—"
+    return f"{currency}{number:,.2f}"
 
 
 # --------------------------------------------------------------------------- #
@@ -593,6 +603,60 @@ def weights_table(weights: Mapping[str, float]) -> None:
         index=[t("weight")],
     ).T
     _dataframe(frame.style.format({t("weight"): "{:.2f}%"}))
+
+
+def money_split_table(
+    weights: Mapping[str, float],
+    amount: float,
+    expected_returns: Mapping[str, float] | None = None,
+    currency: str = "",
+) -> None:
+    """Turn the suggested weights into amounts of money.
+
+    ``expected_returns`` holds annual decimals (0.07 = 7%) taken from the
+    optimizer's assumptions. The estimate is deliberately labelled as such in
+    the UI: it is never shown as a guaranteed outcome.
+    """
+    if _is_empty(weights) or amount <= 0:
+        render_empty_state()
+        return
+
+    has_expected = bool(expected_returns)
+    rows: dict[str, dict[str, str]] = {}
+    for asset in config.ASSETS:
+        if asset not in weights:
+            continue
+        weight = float(weights[asset])
+        invested = amount * weight / 100.0
+        row = {
+            t("weight"): f"{weight:.2f}%",
+            t("money_amount"): fmt_money(invested, currency),
+        }
+        if has_expected:
+            expected = float(expected_returns.get(asset, 0.0))
+            row[t("expected_growth_pct")] = f"{expected * 100:.1f}%"
+            row[t("expected_growth")] = fmt_money(invested * expected, currency)
+        rows[t("asset_" + asset)] = row
+
+    total = {
+        t("weight"): f"{sum(float(value) for value in weights.values()):.2f}%",
+        t("money_amount"): fmt_money(amount, currency),
+    }
+    if has_expected:
+        total_expected = sum(
+            amount
+            * float(weights.get(asset, 0.0))
+            / 100.0
+            * float(expected_returns.get(asset, 0.0))
+            for asset in config.ASSETS
+        )
+        total[t("expected_growth_pct")] = "—"
+        total[t("expected_growth")] = fmt_money(total_expected, currency)
+    rows[t("expected_total")] = total
+
+    _dataframe(pd.DataFrame.from_dict(rows, orient="index"))
+    if not has_expected:
+        st.caption(t("expected_growth_missing"))
 
 
 def metrics_table(metrics: pd.DataFrame) -> None:

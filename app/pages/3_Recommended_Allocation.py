@@ -38,6 +38,25 @@ st.markdown(
     )
 )
 
+components.section(components.t("investment_title"))
+amount_col, currency_col = st.columns([2, 1])
+with amount_col:
+    investment_amount = st.number_input(
+        components.t("investment_amount"),
+        min_value=0.0,
+        step=100.0,
+        help=components.t("investment_amount_help"),
+        key="investment_amount",
+        **components.persist_session_kwargs(),
+    )
+with currency_col:
+    currency = st.selectbox(
+        components.t("investment_currency"),
+        options=list(config.CURRENCIES),
+        key="investment_currency",
+        **components.persist_session_kwargs(),
+    )
+
 try:
     components.section(components.t("constraints_title"))
     col_max, col_min, col_bench = st.columns([1, 1, 1])
@@ -65,7 +84,8 @@ try:
         **components.persist_session_kwargs(),
     )
 
-    signature = (profile, float(max_weight), float(min_bonds), benchmark)
+    language = st.session_state.get("language", config.DEFAULT_LANGUAGE)
+    signature = (profile, float(max_weight), float(min_bonds), benchmark, language)
 
     # Re-solve automatically when shared profile/constraints change, so the
     # recommendation stays consistent across pages. The optimizer is cached in
@@ -101,6 +121,20 @@ try:
             components.weights_comparison_chart(result["comparison"])
             components.chart_help("comparison")
 
+        st.divider()
+        components.section(components.t("money_split_title"))
+        if investment_amount > 0:
+            components.money_split_table(
+                result["weights"],
+                investment_amount,
+                result.get("expected_returns"),
+                currency,
+            )
+            components.chart_help("money_split")
+            components.info_block(components.t("expected_growth_note"))
+        else:
+            components.info_block(components.t("investment_amount_invalid"))
+
         if result.get("source") == services.SOURCE_PLACEHOLDER:
             components.info_block(components.t("placeholder_notice"))
 
@@ -116,6 +150,7 @@ components.glossary(
     [
         "allocation",
         "weight",
+        "expected_return",
         "spy",
         "ief",
         "lqd",

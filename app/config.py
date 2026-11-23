@@ -107,6 +107,10 @@ LABELS: dict[str, dict[str, str]] = {
             "This compares the suggestion with last month and with a simple "
             "benchmark. It shows how different the new mix is."
         ),
+        "chart_money_split": (
+            "Each row turns the suggested percentage into a money amount. The "
+            "last column is a rough yearly gain estimate, not a promise."
+        ),
         "chart_equity": (
             "The lines show what 100 would have become if you had followed each "
             "mix. Higher past lines are better past results, but they do not "
@@ -163,8 +167,10 @@ LABELS: dict[str, dict[str, str]] = {
             "simple rules: no fund larger than X%, and at least Y% in bonds. The "
             "optimiser then searches for a mix that follows your rules and keeps "
             "risk in check. You get exact percentages, a comparison with a simple "
-            "alternative, and a plain-language reason for the result. Nothing is "
-            "learned again here — the saved signals are simply rearranged."
+            "alternative, and a plain-language reason for the result. Enter an "
+            "amount to see the money split and a clearly labelled growth "
+            "estimate. Nothing is learned again here — the saved signals are "
+            "simply rearranged."
         ),
         "p4_plain": (
             "This page asks: if we had followed a simple mix in the past, what "
@@ -275,6 +281,32 @@ LABELS: dict[str, dict[str, str]] = {
             "A suggested mix based on the models and your rules. It is one possible "
             "scenario, not a prediction or investment advice."
         ),
+        # Investment amount and money split.
+        "investment_title": "Your investment",
+        "investment_amount": "How much do you want to invest?",
+        "investment_amount_help": (
+            "This amount is only used to translate the suggested percentages "
+            "into money. It does not change the recommendation."
+        ),
+        "investment_currency": "Currency",
+        "investment_amount_invalid": (
+            "Enter an amount greater than 0 to see how your money would be split."
+        ),
+        "money_split_title": "How your money would be split",
+        "money_amount": "Amount",
+        "expected_growth_pct": "Est. yearly return",
+        "expected_growth": "Est. yearly increase",
+        "expected_total": "Total",
+        "expected_growth_note": (
+            "The estimated increases use the same long-run average returns the "
+            "optimizer used. They are rough guesses based on the past, not "
+            "guarantees, and they ignore taxes and fees."
+        ),
+        "expected_growth_missing": (
+            "Expected-return data is unavailable here, so the increase columns "
+            "are hidden. The money split is still shown."
+        ),
+
         "constraints_title": "Constraints",
         "max_weight": "Maximum weight per asset (%)",
         "min_bonds": "Minimum bond share, IEF + LQD (%)",
@@ -469,6 +501,10 @@ LABELS: dict[str, dict[str, str]] = {
             "simple de référence. Vous voyez à quel point le nouveau mélange est "
             "différent."
         ),
+        "chart_money_split": (
+            "Chaque ligne convertit le pourcentage suggéré en montant d'argent. "
+            "La dernière colonne est une estimation de gain annuel, pas une promesse."
+        ),
         "chart_equity": (
             "Les lignes montrent ce que 100 seraient devenus si vous aviez suivi "
             "chaque mélange. Des lignes plus hautes indiquent de meilleurs résultats "
@@ -526,8 +562,9 @@ LABELS: dict[str, dict[str, str]] = {
             "Y % en obligations. L'optimiseur cherche alors un mélange qui respecte "
             "vos règles tout en maîtrisant le risque. Vous obtenez des pourcentages "
             "précis, une comparaison avec une solution simple et une explication en "
-            "langage courant. Rien n'est réentraîné ici : les signaux enregistrés "
-            "sont simplement réorganisés."
+            "langage courant. Saisissez un montant pour voir la répartition de "
+            "l'argent et une estimation de croissance clairement signalée. Rien "
+            "n'est réentraîné ici : les signaux enregistrés sont simplement réorganisés."
         ),
         "p4_plain": (
             "Cette page demande : si nous avions suivi un mélange simple dans le "
@@ -636,6 +673,32 @@ LABELS: dict[str, dict[str, str]] = {
             "Un mélange suggéré à partir des modèles et de vos règles. C'est un "
             "scénario possible, ni une prévision ni un conseil en investissement."
         ),
+        "investment_title": "Votre investissement",
+        "investment_amount": "Combien souhaitez-vous investir ?",
+        "investment_amount_help": (
+            "Ce montant sert uniquement à convertir les pourcentages suggérés "
+            "en argent. Il ne modifie pas la recommandation."
+        ),
+        "investment_currency": "Devise",
+        "investment_amount_invalid": (
+            "Saisissez un montant supérieur à 0 pour voir la répartition de votre argent."
+        ),
+        "money_split_title": "Répartition de votre argent",
+        "money_amount": "Montant",
+        "expected_growth_pct": "Rendement annuel estimé",
+        "expected_growth": "Augmentation annuelle estimée",
+        "expected_total": "Total",
+        "expected_growth_note": (
+            "Les augmentations estimées reposent sur les mêmes rendements moyens "
+            "de long terme utilisés par l'optimiseur. Ce sont des suppositions "
+            "grossières fondées sur le passé, pas des garanties, et elles ignorent "
+            "les impôts et les frais."
+        ),
+        "expected_growth_missing": (
+            "Les données de rendement attendu sont indisponibles ici : les colonnes "
+            "d'augmentation sont masquées. La répartition de l'argent est quand même affichée."
+        ),
+
         "constraints_title": "Contraintes",
         "max_weight": "Poids maximal par actif (%)",
         "min_bonds": "Part minimale d'obligations, IEF + LQD (%)",
@@ -752,6 +815,7 @@ GLOSSARY: dict[str, dict[str, tuple[str, str]]] = {
         "vnq": ("VNQ", "A fund of listed property companies (real estate). It can be more volatile than the bond funds."),
         "allocation": ("Allocation", "How the money is split between the four funds, shown as percentages."),
         "weight": ("Weight", "The percentage of the portfolio in one fund. 25% means a quarter of the money."),
+        "expected_return": ("Expected return", "A rough guess of how much a fund might earn in a year, based on its history. It is not a guarantee."),
         "risk_profile": ("Risk profile", "How much ups and downs you are willing to accept. Conservative means calmer; aggressive accepts more risk."),
         "signal": ("Signal", "A clue from a model about what might happen. It is not a certainty."),
         "model": ("Model", "A computer program that learns patterns from past data."),
@@ -792,6 +856,7 @@ GLOSSARY: dict[str, dict[str, tuple[str, str]]] = {
         "vnq": ("VNQ", "Un fonds de sociétés immobilières cotées (REIT). Il peut être plus volatil que les fonds obligataires."),
         "allocation": ("Allocation", "La répartition de l'argent entre les quatre fonds, en pourcentages."),
         "weight": ("Poids", "Le pourcentage du portefeuille dans un fonds. 25 % signifie un quart de l'argent."),
+        "expected_return": ("Rendement attendu", "Une estimation approximative de ce qu'un fonds pourrait rapporter en une année, fondée sur son historique. Ce n'est pas une garantie."),
         "risk_profile": ("Profil de risque", "La part des hauts et des bas que vous acceptez. Prudent = plus calme ; dynamique = plus de risque."),
         "signal": ("Signal", "Un indice fourni par un modèle sur ce qui pourrait arriver. Ce n'est pas une certitude."),
         "model": ("Modèle", "Un programme informatique qui apprend des régularités dans des données passées."),
@@ -863,6 +928,9 @@ DEFAULT_RISK_PROFILE = "balanced"
 
 DEFAULT_MAX_WEIGHT = 60.0
 DEFAULT_MIN_BONDS = 20.0
+DEFAULT_INVESTMENT_AMOUNT = 10_000.0
+CURRENCIES = ("$", "€", "£")
+DEFAULT_CURRENCY = "$"
 MIN_WEIGHT_SLIDER = 10.0
 MAX_WEIGHT_SLIDER = 100.0
 WEIGHT_SLIDER_STEP = 5.0

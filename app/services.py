@@ -593,6 +593,11 @@ def get_allocation(
         "explanation": "\n\n".join(lines),
         "source": source,
         "portfolio_vol": None,
+        # Annual returns (decimals) used by the optimizer, exposed so the UI can
+        # show an explicitly labelled estimate without recomputing anything.
+        "expected_returns": {
+            asset: float(mu[index]) for index, asset in enumerate(config.ASSETS)
+        },
         "as_of": get_data_as_of(),
     }
 
